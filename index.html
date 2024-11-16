@@ -103,8 +103,12 @@
             videoElement.src = selectedMatch;
             videoElement.play();
 
-            // Alert with Telegram channel link
-            alert("Join our Telegram channel for updates: https://t.me/+NFoX453eVVI4N2M1");
+            // Show alert with options
+            const userChoice = confirm("Join our Telegram channel for updates?");
+            if (userChoice) {
+                // Redirect to Telegram channel
+                window.location.href = "https://t.me/+NFoX453eVVI4N2M1";
+            }
         }
     </script>
 </body>
