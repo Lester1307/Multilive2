@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>India vs South Africa T20I Series - Live Streaming</title>
-    <!-- Video.js CSS -->
-    <link href="https://vjs.zencdn.net/7.21.0/video-js.css" rel="stylesheet" />
+    <title>IDFC FIRST Bank Ranji Trophy - Live Streaming</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -40,7 +38,7 @@
             margin-top: 20px;
         }
 
-        .video-js {
+        video {
             width: 100%;
             height: 500px;
         }
@@ -64,78 +62,50 @@
             border-radius: 8px;
             margin-left: 10px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .dropdown:hover {
             background-color: #FFD700;
             color: #003366;
         }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9em;
-            color: #cccccc;
-            background: #003366;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
-    <h1>India vs South Africa T20I Series - Live Streaming</h1>
+    <h1>IDFC FIRST Bank Ranji Trophy - Live Streaming</h1>
     <div class="main-content">
-        <div class="dropdown-container">
-            <label for="language-select">Choose Language Feed:</label>
-            <select id="language-select" class="dropdown" onchange="changeFeed(this.value)">
-                <option value="https://prod-sports-hin-cf.jiocinema.com/hls/live/2100324/uhdakamaictvavcssaispotindvssahinm1151124__c8e9cc1b-eb9a-47bc-b525-e56767798c21/master.m3u8" selected>
-                    English
-                </option>
-                <option value="https://prod-sports-hin-cf.jiocinema.com/hls/live/2100324/uhdakamaictvavcssaispotindvssahinm1151124__c8e9cc1b-eb9a-47bc-b525-e56767798c21/master.m3u8">
-                    Hindi
-                </option>
-                <option value="https://prod-sports-hin-cf.jiocinema.com/hls/live/2100324/uhdakamaictvavcssaispotindvssahinm1151124__c8e9cc1b-eb9a-47bc-b525-e56767798c21/master.m3u8">
-                    Tamil
-                </option>
-                <option value="https://prod-sports-south-cf.jiocinema.com/hls/live/2109679/uhdakamaictvavcssaispotindvssatamm1151124__c8e9cc1b-eb9a-47bc-b525-e56767798c21//master.m3u8">
-                    Telugu
-                </option>
-                <option value="https://prod-sports-south-cf.jiocinema.com/hls/live/2109514/uhdakamaictvavcssaispotindvssaodiam1151124__c8e9cc1b-eb9a-47bc-b525-e56767798c21//master.m3u8">
-                    Bhojpuri
-                </option>
-                <option value="https://prod-sports-south-gm.jiocinema.com/hls/live/2109691/uhdakamaictvavcssaispotindvssakanm1151124__c8e9cc1b-eb9a-47bc-b525-e56767798c21//master.m3u8">
-                    Kannada
-                </option>
-                <option value="https://prod-sports-south-cf.jiocinema.com/hls/live/2109514/uhdakamaictvavcssaispotindvssaodiam1151124__c8e9cc1b-eb9a-47bc-b525-e56767798c21//master.m3u8">
-                    Haryanvi
-                </option>
-                <option value="https://prod-sports-north-cf.jiocinema.com/hls/live/2109741/uhdakamaictvavcssaispotindvssabenm1151124__c8e9cc1b-eb9a-47bc-b525-e56767798c21//master.m3u8">
-                    Bengali
-                </option>
-            </select>
-        </div>
+        <!-- Video Container -->
         <div class="video-container">
-            <video id="live-stream" class="video-js vjs-default-skin" controls preload="auto" autoplay muted data-setup="{}">
-                <source id="video-source" src="https://prod-sports-hin-cf.jiocinema.com/hls/live/2100324/uhdakamaictvavcssaispotindvssahinm1151124__c8e9cc1b-eb9a-47bc-b525-e56767798c21/master.m3u8" type="application/x-mpegURL">
-                Your browser does not support HTML5 video.
+            <video id="liveFeed" controls autoplay muted>
+                <source src="https://prod-sports-eng-gm.jiocinema.com/hls/live/2100306/hd_akamai_merged_avc_eng_cricket_m1_161124/master.m3u8" type="application/x-mpegURL">
+                Your browser does not support the video tag.
             </video>
         </div>
+
+        <!-- Dropdown for Match Selection -->
+        <div class="dropdown-container">
+            <label for="matchSelect">Choose Match:</label>
+            <select id="matchSelect" class="dropdown" onchange="changeMatch()">
+                <option value="https://prod-sports-eng-gm.jiocinema.com/hls/live/2100306/hd_akamai_merged_avc_eng_cricket_m1_161124/master.m3u8">Vidarbha vs Gujarat</option>
+                <option value="https://prod-sports-eng-gm.jiocinema.com/hls/live/2100306/hd_akamai_merged_avc_eng_cricket_m2_161124/master.m3u8">Uttar Pradesh vs Karnataka</option>
+                <option value="https://prod-sports-eng-gm.jiocinema.com/hls/live/2100306/hd_akamai_merged_avc_eng_cricket_m3_161124/master.m3u8">Himachal Pradesh vs Pondicherry</option>
+            </select>
+        </div>
     </div>
-    <footer>&copy; FLICKXDRIVE  All rights reserved.</footer>
-    <!-- Video.js and JavaScript -->
-    <script src="https://vjs.zencdn.net/7.21.0/video.min.js"></script>
+
     <script>
-        var player = videojs('live-stream');
+        // Function to change the match feed
+        function changeMatch() {
+            const videoElement = document.getElementById('liveFeed');
+            const selectedMatch = document.getElementById('matchSelect').value;
 
-        function changeFeed(url) {
-            player.src({ type: 'application/x-mpegURL', src: url });
-            player.play();
+            // Update video source
+            videoElement.src = selectedMatch;
+            videoElement.play();
+
+            // Alert with Telegram channel link
+            alert("Join our Telegram channel for updates: https://t.me/+NFoX453eVVI4N2M1");
         }
-
-        // Autoplay the default language (English) on page load
-        player.ready(function() {
-            player.play();
-        });
     </script>
 </body>
 </html>
